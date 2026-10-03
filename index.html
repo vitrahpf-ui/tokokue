@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookies & Pastry - Etalase Kue Kering Premium</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter untuk teks, Playfair Display untuk heading agar elegan -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome untuk Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        // Konfigurasi Tailwind Custom Theme
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pastry-brown': '#8B5A2B', // Cokelat khas kue
+                        'pastry-light': '#FDFBF7', // Krem pastel untuk background
+                        'pastry-cream': '#F5E6D3',
+                        'pastry-accent': '#D4A373',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Animasi sederhana untuk modal */
+        .modal-enter { opacity: 0; transform: scale(0.9); }
+        .modal-enter-active { opacity: 1; transform: scale(1); transition: opacity 0.3s, transform 0.3s; }
+        .modal-leave { opacity: 1; transform: scale(1); }
+        .modal-leave-active { opacity: 0; transform: scale(0.9); transition: opacity 0.3s, transform 0.3s; pointer-events: none; }
+        
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+        
+        /* Hide scrollbar for category filter but keep functionality */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-pastry-light text-gray-800 font-sans antialiased">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <i class="fa-solid fa-cookie-bite text-pastry-brown text-2xl mr-2"></i>
+                    <span class="font-serif font-bold text-xl text-pastry-brown">Sweet Treats</span>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#beranda" class="text-gray-600 hover:text-pastry-brown transition duration-300 font-medium">Beranda</a>
+                    <a href="#katalog" class="text-gray-600 hover:text-pastry-brown transition duration-300 font-medium">Katalog Produk</a>
+                    <a href="#tentang" class="text-gray-600 hover:text-pastry-brown transition duration-300 font-medium">Tentang Kami</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-pastry-brown focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#beranda" class="block px-3 py-2 text-gray-700 hover:bg-pastry-cream hover:text-pastry-brown rounded-md">Beranda</a>
+                <a href="#katalog" class="block px-3 py-2 text-gray-700 hover:bg-pastry-cream hover:text-pastry-brown rounded-md">Katalog Produk</a>
+                <a href="#tentang" class="block px-3 py-2 text-gray-700 hover:bg-pastry-cream hover:text-pastry-brown rounded-md">Tentang Kami</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Beranda / Hero Section -->
+    <section id="beranda" class="relative pt-24 pb-12 lg:pt-32 lg:pb-24 overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <!-- Text Content -->
+                <div class="text-center md:text-left z-10">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-gray-900 leading-tight mb-4">
+                        Manisnya Momen <br> dengan <span class="text-pastry-brown">Resep Klasik</span>
+                    </h1>
+                    <p class="text-lg text-gray-600 mb-8 max-w-lg mx-auto md:mx-0">
+                        Kami memanggang kebahagiaan setiap harinya. Menggunakan 100% mentega asli berkualitas untuk menemani waktu santai Anda dan keluarga.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#katalog" class="bg-pastry-brown hover:bg-yellow-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:-translate-y-1">
+                            Lihat Katalog
+                        </a>
+                        <a href="https://wa.me/6281234567890?text=Halo%20Admin%20Sweet%20Treats,%20saya%20mau%20bertanya..." target="_blank" class="bg-white border-2 border-pastry-brown text-pastry-brown hover:bg-pastry-cream font-semibold py-3 px-8 rounded-full transition duration-300">
+                            Tanya via WhatsApp
+                        </a>
+                    </div>
+                </div>
+                <!-- Image Content -->
+                <div class="relative z-10 hidden md:block">
+                    <!-- Placeholder image with appetizing colors -->
+                    <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=600&h=500&auto=format&fit=crop" alt="Kue Premium" class="rounded-3xl shadow-2xl object-cover w-full h-[400px] lg:h-[500px]">
+                    
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl flex items-center space-x-3">
+                        <div class="bg-green-100 p-2 rounded-full text-green-600">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 font-medium">Bahan Pilihan</p>
+                            <p class="font-bold text-gray-800">100% Mentega Asli</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Decorative Background Blob -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-pastry-cream rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
+    </section>
+
+    <!-- Katalog Produk -->
+    <section id="katalog" class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-4">Katalog Produk</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Pilih varian kesukaan Anda. Dibuat fresh setiap hari dengan penuh cinta.</p>
+            </div>
+
+            <!-- Filter Categories -->
+            <div class="flex overflow-x-auto hide-scrollbar justify-start md:justify-center space-x-2 mb-10 pb-2">
+                <button class="filter-btn active bg-pastry-brown text-white px-6 py-2 rounded-full text-sm font-medium whitespace-nowrap transition" data-filter="all">Semua</button>
+                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-6 py-2 rounded-full text-sm font-medium whitespace-nowrap transition" data-filter="klasik">Kue Klasik</button>
+                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-6 py-2 rounded-full text-sm font-medium whitespace-nowrap transition" data-filter="kekinian">Kue Kekinian</button>
+                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-6 py-2 rounded-full text-sm font-medium whitespace-nowrap transition" data-filter="hampers">Hampers</button>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="product-grid">
+                <!-- Produk 1 (Klasik) -->
+                <div class="product-card bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 overflow-hidden cursor-pointer group" data-category="klasik" onclick="openModal('Kastengel Premium', 'Keju edam asli, tepung terigu, mentega wisman, telur.', 'Toples 500gr', 'Rp 120.000', 'Ready Stock', 'https://images.unsplash.com/photo-1605807646983-377bc5a76493?q=80&w=400&h=300&auto=format&fit=crop')">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1605807646983-377bc5a76493?q=80&w=400&h=300&auto=format&fit=crop" alt="Kastengel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded shadow-sm">Ready</span>
+                    </div>
+                    <div class="p-5">
+                        <p class="text-xs text-pastry-accent font-semibold mb-1 uppercase tracking-wide">Kue Klasik</p>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 font-serif">Kastengel Premium</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-pastry-brown font-bold">Rp 120.000</span>
+                            <button class="text-pastry-brown hover:text-yellow-800 bg-pastry-cream p-2 rounded-full"><i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produk 3 (Kekinian) -->
+                <div class="product-card bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 overflow-hidden cursor-pointer group" data-category="kekinian" onclick="openModal('Soft Baked Choco Chips', 'Cokelat Belgia premium, brown sugar, mentega murni.', 'Box isi 6 Pcs', 'Rp 85.000', 'Pre-Order 2 Hari', 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&w=400&h=300&auto=format&fit=crop')">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&w=400&h=300&auto=format&fit=crop" alt="Choco Chips" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 right-3 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded shadow-sm">Pre-Order</span>
+                    </div>
+                    <div class="p-5">
+                        <p class="text-xs text-pastry-accent font-semibold mb-1 uppercase tracking-wide">Kue Kekinian</p>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 font-serif">Soft Baked Choco</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-pastry-brown font-bold">Rp 85.000</span>
+                            <button class="text-pastry-brown hover:text-yellow-800 bg-pastry-cream p-2 rounded-full"><i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produk 4 (Hampers) -->
+                <div class="product-card bg-white rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 overflow-hidden cursor-pointer group" data-category="hampers" onclick="openModal('Hampers Eid Mubarak', '3 Toples 250gr (Nastar, Kastengel, Putri Salju), Kartu Ucapan, Box Premium.', 'Box Hampers', 'Rp 250.000', 'Pre-Order 3 Hari', 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=400&h=300&auto=format&fit=crop')">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=400&h=300&auto=format&fit=crop" alt="Hampers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 right-3 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded shadow-sm">Pre-Order</span>
+                    </div>
+                    <div class="p-5">
+                        <p class="text-xs text-pastry-accent font-semibold mb-1 uppercase tracking-wide">Hampers</p>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 font-serif">Hampers Spesial</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-pastry-brown font-bold">Rp 250.000</span>
+                            <button class="text-pastry-brown hover:text-yellow-800 bg-pastry-cream p-2 rounded-full"><i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Detail Produk -->
+    <div id="product-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm transition-opacity" style="opacity: 0;">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto modal-leave" id="modal-content">
+            <div class="flex flex-col md:flex-row relative">
+                <!-- Tombol Close -->
+                <button onclick="closeModal()" class="absolute top-4 right-4 z-10 bg-white/80 md:bg-gray-100 text-gray-600 hover:text-gray-900 rounded-full w-8 h-8 flex items-center justify-center focus:outline-none backdrop-blur-md">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+                
+                <!-- Gambar Produk Modal -->
+                <div class="w-full md:w-2/5 bg-pastry-cream relative">
+                    <img id="modal-image" src="" alt="Detail Produk" class="w-full h-64 md:h-full object-cover">
+                    <span id="modal-status" class="absolute top-4 left-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md"></span>
+                </div>
+                
+                <!-- Info Produk Modal -->
+                <div class="w-full md:w-3/5 p-6 md:p-8 flex flex-col justify-center">
+                    <h2 id="modal-title" class="text-2xl md:text-3xl font-serif font-bold text-gray-900 mb-2">Nama Kue</h2>
+                    <p id="modal-price" class="text-xl text-pastry-brown font-bold mb-6">Rp 0</p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div>
+                            <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-1">Ukuran / Kemasan</h4>
+                            <p id="modal-size" class="text-gray-600 flex items-center"><i class="fa-solid fa-box text-pastry-accent mr-2 w-4"></i> <span>-</span></p>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-1">Komposisi Utama</h4>
+                            <p id="modal-desc" class="text-gray-600 leading-relaxed text-sm">-</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Tombol Pesan WA -->
+                    <div class="mt-auto">
+                        <a id="modal-wa-btn" href="#" target="_blank" class="flex w-full justify-center items-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-xl transition duration-300">
+                            <i class="fa-brands fa-whatsapp text-xl mr-2"></i>
+                            Pesan via WhatsApp
+                        </a>
+                        <p class="text-center text-xs text-gray-400 mt-3">Pesanan akan diarahkan ke admin WhatsApp kami.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profil & Footer -->
+    <footer id="tentang" class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <!-- Info Toko -->
+                <div>
+                    <div class="flex items-center mb-6">
+                        <i class="fa-solid fa-cookie-bite text-pastry-accent text-3xl mr-2"></i>
+                        <span class="font-serif font-bold text-2xl">Sweet Treats</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Berawal dari resep rahasia keluarga, kami berkomitmen menghadirkan kue kering berkualitas premium yang dibuat secara homemade dengan bahan-bahan pilihan terbaik.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-facebook text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-tiktok text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Jam Buka & Kontak -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6 font-serif border-b border-gray-700 pb-2 inline-block">Informasi</h3>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-clock mt-1 mr-3 text-pastry-accent w-4 text-center"></i>
+                            <div>
+                                <strong class="block text-gray-200">Jam Operasional:</strong>
+                                Senin - Sabtu: 08.00 - 17.00 WIB<br>Minggu: Libur
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-brands fa-whatsapp mt-1 mr-3 text-pastry-accent w-4 text-center"></i>
+                            <div>
+                                <strong class="block text-gray-200">WhatsApp Admin:</strong>
+                                0812-3456-7890
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Lokasi -->
+                <div>
+                    <h3 class="text-lg font-bold mb-6 font-serif border-b border-gray-700 pb-2 inline-block">Lokasi Dapur</h3>
+                    <div class="flex items-start text-sm text-gray-400 mb-4">
+                        <i class="fa-solid fa-map-location-dot mt-1 mr-3 text-pastry-accent w-4 text-center"></i>
+                        <p>Jl. Manis Sedap No. 123, Kel. SukaKue, Jakarta Selatan, 12345.</p>
+                    </div>
+                    <!-- Placeholder untuk Map (Bisa diganti embed iframe Google Maps) -->
+                    <div class="w-full h-32 bg-gray-800 rounded-lg flex items-center justify-center border border-gray-700">
+                        <span class="text-gray-500 text-xs"><i class="fa-solid fa-map"></i> Area Peta</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+                <p>&copy; 2026 Sweet Treats Cookies & Pastry. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. Mobile Menu Toggle ---
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // --- 2. Product Filter Logic ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const products = document.querySelectorAll('.product-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Reset active styling
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-pastry-brown', 'text-white');
+                    b.classList.add('bg-gray-100', 'text-gray-600');
+                });
+                
+                // Add active styling to clicked button
+                btn.classList.remove('bg-gray-100', 'text-gray-600');
+                btn.classList.add('bg-pastry-brown', 'text-white');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                products.forEach(product => {
+                    if (filterValue === 'all' || product.getAttribute('data-category') === filterValue) {
+                        product.style.display = 'block';
+                        // Opsional: Animasi fade in sederhana
+                        product.style.opacity = '0';
+                        setTimeout(() => product.style.opacity = '1', 50);
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // --- 3. Modal (Pop-up) Logic ---
+        const modal = document.getElementById('product-modal');
+        const modalContent = document.getElementById('modal-content');
+        const waNomor = "6281234567890"; // Ganti dengan nomor WA admin
+
+        function openModal(title, desc, size, price, status, imgSrc) {
+            // Isi data ke dalam modal
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-desc').innerText = desc;
+            document.getElementById('modal-size').innerHTML = `<i class="fa-solid fa-box text-pastry-accent mr-2 w-4 text-center"></i> ${size}`;
+            document.getElementById('modal-price').innerText = price;
+            document.getElementById('modal-image').src = imgSrc;
+            
+            // Set Status Label
+            const statusEl = document.getElementById('modal-status');
+            statusEl.innerText = status;
+            if(status.toLowerCase().includes('ready')) {
+                statusEl.className = 'absolute top-4 left-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md';
+            } else {
+                statusEl.className = 'absolute top-4 left-4 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md';
+            }
+
+            // Generate WhatsApp Link
+            const pesanWA = `Halo Admin Sweet Treats, saya tertarik dan ingin pesan:\n\n*${title}*\nUkuran: ${size}\nHarga: ${price}\n\nApakah stoknya masih tersedia?`;
+            const waLink = `https://wa.me/${waNomor}?text=${encodeURIComponent(pesanWA)}`;
+            document.getElementById('modal-wa-btn').href = waLink;
+
+            // Tampilkan Modal dengan Animasi
+            modal.classList.remove('hidden');
+            // Sedikit delay agar transisi CSS berjalan
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modalContent.classList.remove('modal-leave');
+                modalContent.classList.add('modal-enter-active');
+            }, 10);
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            // Animasi tutup
+            modal.style.opacity = '0';
+            modalContent.classList.remove('modal-enter-active');
+            modalContent.classList.add('modal-leave-active');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modalContent.classList.remove('modal-leave-active');
+                modalContent.classList.add('modal-leave');
+                // Restore body scroll
+                document.body.style.overflow = 'auto';
+            }, 300); // Sesuai dengan durasi transisi CSS
+        }
+
+        // Tutup modal jika area luar (backdrop) diklik
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Tutup modal dengan tombol Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
